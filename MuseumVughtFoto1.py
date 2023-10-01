@@ -23,6 +23,7 @@ def Maak_foto():
             #print(check) #prints true as long as the webcam is running
             #print(frame) #prints matrix values of each framecd 
             cv2.imshow("Vughts Museum Foto", frame)
+            cv2.moveWindow("Vughts Museum Foto", 1000, 200)
             key = cv2.waitKey(1)
             if key == ord(' '): 
                 cv2.imwrite(filename='Museum_img.jpg', img=frame)
@@ -133,7 +134,8 @@ def Toon_drie_fotos():
 
     #Inner function
     def teken_drie_plaatjes(plaatje1, plaatje2, plaatje3):
-        plaatje2 = pygame.transform.scale(plaatje2, (782,1000))
+        plaatje2 = pygame.transform.scale(plaatje2, (665,850))
+        #plaatje2 = pygame.transform.scale(plaatje2, (782,1000))
         #plaatje3 = pygame.transform.scale(plaatje3, (400,400))
         # Using blit to copy content from one surface to other
         scrn.blit(plaatje1.convert(), (0, 50))
@@ -141,8 +143,7 @@ def Toon_drie_fotos():
         scrn.blit(plaatje3.convert(), (1440,50))
         # paint screen one time
         pygame.display.flip()
-
-
+        
     # activate the pygame library .
     pygame.init()
 
@@ -153,7 +154,7 @@ def Toon_drie_fotos():
     print(size)
     # set the pygame window name
     pygame.display.set_caption('Maak je keuze door op Spatiebalk te Klikken')
-
+   
     # create a surface object, image is drawn on it.
     imp = pygame.image.load("Samen1.jpg")
     imp2 = pygame.image.load("Samen2.jpg")
@@ -169,6 +170,10 @@ def Toon_drie_fotos():
     textRect = text.get_rect()
     textRect.center = (500, 10)
     scrn.blit(text, textRect)
+
+    #plt = pygame.image.load("c:/FaceHerken/KnoppenTekst.png").convert()
+    #scrn.blit(plt, (100,800 ))
+    #pygame.display.update
 
 
     middelstePlaatje = 1
@@ -225,9 +230,19 @@ def Maak_kaart(Keuze):
         im2 = Image.open('Kaart5.jpg')
     Image.Image.paste(im2, im1, (600, 1))
     im2.save('c:/FaceHerken/SamenEind.jpg', quality=95)
-    im2.show()
+    scrn = pygame.display.set_mode((X, Y))
+     # set the pygame window name
+    pygame.display.set_caption('image')
+     # create a surface object, image is drawn on it.
+    imp = pygame.image.load('c:/FaceHerken/SamenEind.jpg').convert()
+     # Using blit to copy content from one surface to other
+    scrn.blit(imp, (10, 150))
+     # paint screen one time
+    Maak_QR("SamenEind.jpg",pygame,scrn)
+    pygame.display.flip()
+    #im2.show()
 
-def Maak_QR(A):
+def Maak_QR(A,pygame,scrn):
     #use: app.py <arg>
     #<arg> = naam van het bestand
     #pip install imagekitio  <-- niet vergeten
@@ -286,7 +301,15 @@ def Maak_QR(A):
     img = qrcode.make(finalURL)
     type(img)  
     img.save(upload.name+".png")
-    img.show()
+    #pygame.display.set_caption('image')
+     # create a surface object, image is drawn on it.
+    #scrn = pygame.display.set_mode((X, Y))
+    imp = pygame.image.load(upload.name+".png").convert()
+     # Using blit to copy content from one surface to other
+    scrn.blit(imp, (1200, 150))
+     # paint screen one time
+    pygame.display.update()
+    #img.show()
 
 if __name__ == '__main__':
     # importing required library
@@ -301,7 +324,7 @@ if __name__ == '__main__':
      # set the pygame window name
     pygame.display.set_caption('image')
      # create a surface object, image is drawn on it.
-    imp = pygame.image.load("Startscherm.png").convert()
+    imp = pygame.image.load("StartschermDef.png").convert()
      # Using blit to copy content from one surface to other
     scrn.blit(imp, (0, 0))
      # paint screen one time
@@ -319,4 +342,4 @@ if __name__ == '__main__':
     
     # Maak QRcode en URL
     #import app.py
-    Maak_QR("SamenEind.jpg")
+    #Maak_QR("SamenEind.jpg")
